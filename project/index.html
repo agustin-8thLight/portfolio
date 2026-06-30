@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Portfolio system · Project overview · 8th Light</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ── Tokens (from the project DESIGN_SYSTEM.md) ───────────────────────── */
+:root{
+  --accent:#f32735;
+  --font-display:"Space Grotesk","Avenir Next",system-ui,sans-serif;
+  --font-mono:"Space Mono",ui-monospace,monospace;
+  --font-body:"Avenir Next","Mulish",system-ui,-apple-system,sans-serif;
+  --radius:4px; --card-radius:8px;
+  --ease:cubic-bezier(.22,.61,.36,1); --fast:180ms; --med:320ms;
+  --measure:42rem; --wrap:74rem;
+}
+[data-theme="light"]{
+  --bg:#fff; --bg-alt:#f4f4f4; --surface:#fff; --inset:#ebebeb;
+  --text:#141414; --strong:#020303; --soft:#3c3c3c; --faint:#777f88;
+  --line:#ebebeb; --line-strong:#dedede; --header:rgba(255,255,255,.82);
+}
+[data-theme="dark"]{
+  --bg:#0a0b0b; --bg-alt:#141414; --surface:#141414; --inset:#1c1c1c;
+  --text:#f4f4f4; --strong:#fff; --soft:#dedede; --faint:#9aa1a8;
+  --line:#2a2a2a; --line-strong:#3c3c3c; --header:rgba(10,11,11,.78);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:80px}
+body{margin:0; background:var(--bg); color:var(--text);
+  font-family:var(--font-body); font-size:17px; line-height:1.6;
+  transition:background var(--med) var(--ease),color var(--med) var(--ease)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important} html{scroll-behavior:auto}}
+a{color:inherit}
+.wrap{max-width:var(--wrap); margin:0 auto; padding:0 clamp(1.25rem,5vw,3rem)}
+
+/* ── Header ───────────────────────────────────────────────────────────── */
+header{position:sticky; top:0; z-index:10; background:var(--header);
+  backdrop-filter:blur(14px) saturate(160%); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; justify-content:space-between; gap:1rem; height:64px}
+.brand{font-family:var(--font-display); font-weight:500; font-size:15px; letter-spacing:-.01em}
+.brand .mark{color:var(--accent)}
+nav.jump{display:flex; gap:1.4rem; font-size:13px}
+nav.jump a{font-family:var(--font-body); font-weight:600; color:var(--soft);
+  text-decoration:none; transition:color var(--fast)}
+nav.jump a:hover{color:var(--accent)}
+@media(max-width:640px){nav.jump{display:none}}
+.toggle{appearance:none; border:1px solid var(--line-strong); background:transparent;
+  color:var(--soft); font-family:var(--font-mono); font-size:11px; letter-spacing:.08em;
+  text-transform:uppercase; padding:.45rem .7rem; border-radius:999px; cursor:pointer}
+.toggle:hover{border-color:var(--accent); color:var(--accent)}
+
+/* ── Type ─────────────────────────────────────────────────────────────── */
+.eyebrow{font-family:var(--font-mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--faint); margin:0 0 .8rem}
+h1{font-family:var(--font-display); font-weight:500; letter-spacing:-.03em; line-height:1;
+  font-size:clamp(2.5rem,7vw,5rem); margin:.2rem 0 1rem; color:var(--strong)}
+h2{font-family:var(--font-display); font-weight:500; letter-spacing:-.02em; line-height:1.05;
+  font-size:clamp(1.9rem,4vw,2.8rem); margin:0 0 .4rem; color:var(--strong)}
+h3{font-family:var(--font-display); font-weight:500; letter-spacing:-.01em;
+  font-size:1.3rem; margin:0 0 .4rem; color:var(--strong)}
+.dek{font-size:clamp(1.05rem,2vw,1.3rem); color:var(--soft); max-width:var(--measure); line-height:1.5}
+.lead{font-size:1.05rem; color:var(--soft); max-width:var(--measure)}
+section{padding:clamp(3.5rem,8vw,6.5rem) 0; border-top:1px solid var(--line)}
+.sec-head{margin-bottom:2.5rem; max-width:var(--measure)}
+.sec-head p{color:var(--soft); margin:.6rem 0 0}
+
+/* ── Hero ─────────────────────────────────────────────────────────────── */
+.hero{padding-top:clamp(3rem,7vw,5.5rem)}
+.jobs{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.6rem}
+.pill{font-family:var(--font-mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase;
+  border:1px solid var(--line-strong); border-radius:999px; padding:.45rem .9rem; color:var(--soft)}
+
+/* ── Card grid ────────────────────────────────────────────────────────── */
+.grid{display:grid; gap:1.25rem; grid-template-columns:repeat(auto-fill,minmax(min(100%,21rem),1fr))}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:var(--card-radius);
+  padding:1.5rem 1.6rem; transition:border-color var(--fast),transform var(--fast)}
+.card:hover{border-color:var(--line-strong)}
+.card .kicker{font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--faint); margin:0 0 .6rem; display:flex; gap:.5rem; align-items:center; flex-wrap:wrap}
+.card p{margin:.4rem 0 0; color:var(--soft); font-size:.97rem; line-height:1.55}
+.card .why{margin-top:.85rem; padding-top:.85rem; border-top:1px solid var(--line); font-size:.92rem}
+.card .why b{color:var(--text); font-weight:700}
+
+/* status + owner chips */
+.tag{font-family:var(--font-mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase;
+  padding:.2rem .5rem; border-radius:999px; border:1px solid var(--line-strong); color:var(--faint)}
+.tag.open{border-color:var(--line-strong)}
+.tag.next{color:#fff; background:var(--accent); border-color:var(--accent)}
+.tag.doing{color:var(--accent); border-color:var(--accent)}
+.tag.done{color:#fff; background:var(--soft); border-color:var(--soft)}
+.owner{font-family:var(--font-mono); font-size:10px; letter-spacing:.06em; color:var(--faint)}
+
+/* ── Examples ─────────────────────────────────────────────────────────── */
+.examples{display:grid; gap:1.25rem; grid-template-columns:1fr 1fr}
+@media(max-width:680px){.examples{grid-template-columns:1fr}}
+.ex{display:block; text-decoration:none; background:var(--bg-alt); border:1px solid var(--line);
+  border-radius:var(--card-radius); padding:1.8rem; transition:border-color var(--fast),transform var(--med) var(--ease)}
+.ex:hover{border-color:var(--accent); transform:translateY(-2px)}
+.ex.soon{opacity:.7; cursor:default}
+.ex.soon:hover{border-color:var(--line); transform:none}
+.ex .role{font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--faint)}
+.ex .who{font-family:var(--font-display); font-weight:500; font-size:1.6rem; color:var(--strong); margin:.4rem 0 .3rem; letter-spacing:-.01em}
+.ex .go{font-family:var(--font-body); font-weight:700; font-size:.85rem; color:var(--accent); margin-top:1rem; display:inline-block}
+
+/* ── Update note ──────────────────────────────────────────────────────── */
+.note{background:var(--bg-alt); border:1px solid var(--line); border-left:3px solid var(--accent);
+  border-radius:var(--card-radius); padding:1.4rem 1.6rem; max-width:var(--measure)}
+.note h3{margin-bottom:.6rem}
+.note code{font-family:var(--font-mono); font-size:.85em; background:var(--inset); padding:.1rem .35rem; border-radius:3px}
+.note ol{margin:.6rem 0 0; padding-left:1.2rem; color:var(--soft)}
+.note li{margin:.3rem 0}
+
+footer{border-top:1px solid var(--line); padding:2.5rem 0 3.5rem; color:var(--faint); font-size:.85rem}
+footer a{color:var(--soft); text-decoration:none; border-bottom:1px solid var(--line-strong)}
+footer a:hover{color:var(--accent); border-color:var(--accent)}
+.foot-row{display:flex; flex-wrap:wrap; gap:1.5rem; justify-content:space-between; align-items:baseline}
+.updated{font-family:var(--font-mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <span class="brand">8th Light<span class="mark">.</span> &nbsp;Portfolio system</span>
+    <nav class="jump">
+      <a href="#research">Research</a>
+      <a href="#decisions">Decisions</a>
+      <a href="#opportunities">Opportunities</a>
+      <a href="#examples">Examples</a>
+    </nav>
+    <button class="toggle" id="themeToggle" aria-label="Toggle theme">Dark</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero" style="border-top:none">
+    <p class="eyebrow">Project overview · For the studio</p>
+    <h1>Portfolio system</h1>
+    <p class="dek" id="intro"></p>
+    <div class="jobs" id="jobs"></div>
+  </section>
+
+  <section id="research">
+    <div class="sec-head">
+      <p class="eyebrow">What the research told us</p>
+      <h2>Research outcomes</h2>
+      <p>The quality bar the tool enforces, drawn from hiring-manager and buyer guidance. This is the input, not our opinion.</p>
+    </div>
+    <div class="grid" id="researchGrid"></div>
+  </section>
+
+  <section id="decisions">
+    <div class="sec-head">
+      <p class="eyebrow">What we decided, and why</p>
+      <h2>Decisions</h2>
+      <p>The load-bearing calls. Where one isn't obvious, the reasoning is here so we don't re-litigate or accidentally undo it.</p>
+    </div>
+    <div class="grid" id="decisionsGrid"></div>
+  </section>
+
+  <section id="opportunities">
+    <div class="sec-head">
+      <p class="eyebrow">Where the work is</p>
+      <h2>Opportunities</h2>
+      <p>Open threads to pick up. Set a status and put your name on one to claim it.</p>
+    </div>
+    <div class="grid" id="oppGrid"></div>
+  </section>
+
+  <section id="examples">
+    <div class="sec-head">
+      <p class="eyebrow">Two sibling examples</p>
+      <h2>The examples</h2>
+      <p>Engineers and designers are peer audiences. Each gets its own example portfolio, same system underneath.</p>
+    </div>
+    <div class="examples" id="examplesGrid"></div>
+  </section>
+
+  <section>
+    <div class="note">
+      <h3>How to update this page</h3>
+      <p class="lead" style="font-size:.97rem">All content lives in one place: the <code>DATA</code> object near the top of this file's <code>&lt;script&gt;</code>. Edit the text there, not the markup. To add an item, copy an existing entry in the list and change its fields.</p>
+      <ol>
+        <li>Edit <code>project/index.html</code> in the <code>agustin-8thLight/portfolio</code> repo.</li>
+        <li>For an opportunity, set <code>status</code> to <code>open</code>, <code>next</code>, <code>doing</code>, or <code>done</code>, and fill <code>owner</code>.</li>
+        <li>Update <code>LAST_UPDATED</code> at the top, commit, and push. Pages redeploys in about a minute.</li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span class="updated" id="updated"></span>
+    <span>
+      Source (private): <a href="https://github.com/agustin-8thLight/portfolio-system">portfolio-system</a> ·
+      Published: <a href="https://github.com/agustin-8thLight/portfolio">portfolio</a> ·
+      <a href="../">All portfolios</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+/* ════════════════════════════════════════════════════════════════════════
+   EDIT HERE. This object is the whole page. Designers: change text, add items,
+   flip statuses. Keep the quotes and commas. Then bump LAST_UPDATED + push.
+   ════════════════════════════════════════════════════════════════════════ */
+const LAST_UPDATED = "30 June 2026";
+
+const DATA = {
+  intro: "Tooling that turns 8th Light client work into portfolio case studies fast, as a structured byproduct of the engagement rather than a from-scratch side project. The centerpiece is a Claude Code skill that walks a person from the materials they already have to a finished, brand-aligned case study.",
+
+  jobs: ["Win client work", "Prove studio capability"],
+
+  research: [
+    { kicker:"Model", title:"Capture once, render many",
+      body:"One structured record per project is the source of truth. Every cut (pitch deck, web portfolio, future creds tile) renders from it instead of being rewritten." },
+    { kicker:"Structure", title:"Impact-first beats chronological",
+      body:"Lead with the outcome for the scanners and buyers, then tell the story for the few who read on. This reconciles the two schools instead of picking one." },
+    { kicker:"Quality bar", title:"Four non-negotiables",
+      body:"Every case study clears four checks: an impact headline, a specific measurable problem, a legible personal role, and a real outcome with its source named." },
+    { kicker:"Quality bar", title:"A missing outcome is fatal",
+      body:"No outcome, or an outcome with no source, is the number-one reason portfolios get dismissed, especially at mid level and above." },
+    { kicker:"Calibration", title:"Depth scales by seniority",
+      body:"Junior leans on process and thinking; senior and above lean on judgment, business impact, and problem reframing. The four non-negotiables never change." },
+    { kicker:"Confidentiality", title:"Anonymize by default, never blur",
+      body:"Replace the client name with a domain descriptor and recreate protected screens cleanly. Respecting confidentiality is itself a trust signal to the next client." },
+    { kicker:"Avoid", title:"The red flags",
+      body:"No outcome, unclear personal role on team work, process theater, walls of text with no scannable headlines, generic sameness, vanity framing over specifics." },
+    { kicker:"Framing", title:"Consultancy, not job hunt",
+      body:"The two jobs are winning work and proving studio capability, not individual hiring. That reframing shapes every decision below." },
+  ],
+
+  decisions: [
+    { kicker:"Tooling", title:"A Claude Code skill, not a one-off doc",
+      body:"The tool is a portable skill, vendored into the repo as the source of truth. Run it inside the repo or mirror it to your global skills.",
+      why:"Portable to any repo, version-controlled, and discoverable in a session." },
+    { kicker:"Posture", title:"AI drafts, the person decides",
+      body:"Every generated line is marked [AI DRAFT] until signed off. Anything headed to a real client or candidate gets human review first.",
+      why:"Speed without a quality and trust floor just produces more bad case studies." },
+    { kicker:"Look", title:"One editorial look",
+      body:"An earlier expressive variant was built and retired. The renderer forces a single clean, typographic-led layout.",
+      why:"Restraint keeps attention on the client and the work, which is the brand posture." },
+    { kicker:"Modes", title:"Personal browsable, client unlisted",
+      body:"Personal portfolios are indexable and anonymized. Client cuts live at unguessable, noindex URLs with nothing linking them.",
+      why:"The full set of portfolios is never browsable. That is a deliberate constraint, not a gap." },
+    { kicker:"Depth", title:"Full and lite case studies",
+      body:"Full is the complete impact case study and needs the four non-negotiables. Lite is a title, one-line summary, and a captioned gallery.",
+      why:"Supporting work can round out a story without a full write-up." },
+    { kicker:"Imagery", title:"Abstract, not screenshots",
+      body:"Covers and article imagery are architectural, minimal, muted, elevated. Portraits are approachable and human, no suit and tie.",
+      why:"A McKinsey/PwC treatment reads as elevated and sidesteps protected UI." },
+    { kicker:"Hosting", title:"Pages for personal, Cloudflare for client",
+      body:"Personal portfolios publish from a public repo via GitHub Pages. Client cuts stay on Cloudflare, unlisted and noindex.",
+      why:"Pages can't gate or give per-prospect URLs; Cloudflare can. Each host fits its job." },
+    { kicker:"Home", title:"Repo stays personal for now",
+      body:"Lives under agustin-8thLight (private). Branch protection isn't enforced; we rely on branch + PR + a human merge.",
+      why:"Enforced protection needs the 8thlight org or a paid plan. Open question below." },
+  ],
+
+  opportunities: [
+    { status:"next", owner:"", title:"Build the designer sibling example",
+      body:"Stand up a designer portfolio next to the engineer demo: persona, profile, two or three anonymized case studies, abstract imagery. Same system, design-craft emphasis." },
+    { status:"next", owner:"", title:"Pilot on one real anonymized project",
+      body:"Run a real engagement through the skill end to end. Measure time-to-draft and output quality. Highest-value next step to prove the tool works." },
+    { status:"open", owner:"", title:"Wire up client-cut deploys on Cloudflare",
+      body:"Configure the shared Cloudflare account + token (publish/SETUP.md) and run one client cut end to end to confirm the unlisted + noindex model." },
+    { status:"open", owner:"", title:"Automate publish from GitHub",
+      body:"A GitHub Action so a push builds and deploys, removing the manual step. Needs a cross-repo token; documented as a follow-up." },
+    { status:"open", owner:"", title:"Render the studio creds tile",
+      body:"A studio-capability tile rendered from the same records. Specced, not built." },
+    { status:"open", owner:"", title:"Re-sync the editorial look into Figma",
+      body:"The HTML and Figma template were hand-synced over several passes. A clean re-sync of the final look into the Figma template is deferred." },
+    { status:"open", owner:"", title:"Decide the long-term home",
+      body:"Move to the 8thlight org? It's on the Team plan, so branch protection would be free, and it's the natural home for studio tooling." },
+    { status:"open", owner:"", title:"Pick the records archive",
+      body:"Notion vs in-repo markdown as the long-term home for case-study records across many designers." },
+  ],
+
+  examples: [
+    { role:"Engineer", who:"Marcus Bell", sub:"Staff Software Engineer", href:"../marcus-bell/", live:true,
+      note:"Legacy modernization, data platforms, AI-assisted delivery. Four case studies, fully anonymized." },
+    { role:"Designer", who:"Coming next", sub:"Sibling example", href:"", live:false,
+      note:"A designer portfolio built on the same system, with the emphasis on design craft and outcomes." },
+  ],
+};
+
+/* ── Render (no need to edit below) ───────────────────────────────────── */
+const $ = s => document.querySelector(s);
+$("#intro").textContent = DATA.intro;
+$("#updated").textContent = "Last updated " + LAST_UPDATED;
+$("#jobs").innerHTML = DATA.jobs.map(j => `<span class="pill">${j}</span>`).join("");
+
+const card = d => `<div class="card">
+  <p class="kicker">${d.kicker||""}</p>
+  <h3>${d.title}</h3>
+  <p>${d.body}</p>
+  ${d.why ? `<div class="why"><b>Why:</b> ${d.why}</div>` : ""}
+</div>`;
+$("#researchGrid").innerHTML = DATA.research.map(card).join("");
+$("#decisionsGrid").innerHTML = DATA.decisions.map(card).join("");
+
+const STATUS = {open:["open","Open"], next:["next","Next up"], doing:["doing","In progress"], done:["done","Done"]};
+$("#oppGrid").innerHTML = DATA.opportunities.map(o => {
+  const [cls,label] = STATUS[o.status] || STATUS.open;
+  return `<div class="card">
+    <p class="kicker"><span class="tag ${cls}">${label}</span>${o.owner ? `<span class="owner">@ ${o.owner}</span>` : `<span class="owner">unclaimed</span>`}</p>
+    <h3>${o.title}</h3>
+    <p>${o.body}</p>
+  </div>`;
+}).join("");
+
+$("#examplesGrid").innerHTML = DATA.examples.map(e => {
+  const inner = `<span class="role">${e.role}</span>
+    <div class="who">${e.who}</div>
+    <div class="owner" style="font-size:12px;letter-spacing:0">${e.sub}</div>
+    <p class="card" style="background:none;border:none;padding:.6rem 0 0;margin:0">${e.note}</p>
+    ${e.live ? `<span class="go">View portfolio →</span>` : `<span class="go" style="color:var(--faint)">In progress</span>`}`;
+  return e.live
+    ? `<a class="ex" href="${e.href}">${inner}</a>`
+    : `<div class="ex soon">${inner}</div>`;
+}).join("");
+
+/* theme toggle */
+const root = document.documentElement, tg = $("#themeToggle");
+const setT = t => { root.setAttribute("data-theme",t); tg.textContent = t==="dark"?"Light":"Dark";
+  try{localStorage.setItem("pf-theme",t)}catch(e){} };
+setT((()=>{try{return localStorage.getItem("pf-theme")}catch(e){return null}})() || "light");
+tg.addEventListener("click",()=>setT(root.getAttribute("data-theme")==="dark"?"light":"dark"));
+</script>
+</body>
+</html>

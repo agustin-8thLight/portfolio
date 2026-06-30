@@ -19,20 +19,45 @@
     h1 { font: 500 clamp(2rem, 6vw, 3.5rem)/1 "Space Grotesk", system-ui, sans-serif;
       letter-spacing: -0.025em; margin: 0; }
     .mark { color: #f32735; }
-    a { color: #f4f4f4; text-decoration: none; border-bottom: 1px solid #2a2a2a; padding-bottom: 2px; }
-    a:hover { border-color: #f32735; }
-    ul { list-style: none; padding: 0; margin: 0.5rem 0 0; }
-    li { margin: 0.4rem 0; }
-    p { color: #9aa1a8; max-width: 36rem; margin: 0; font-size: 14px; }
+    a { color: #f4f4f4; text-decoration: none; }
+    .cats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: .5rem; }
+    @media (max-width: 560px) { .cats { grid-template-columns: 1fr; } }
+    .cat { display: block; background: #141414; border: 1px solid #2a2a2a; border-radius: 8px;
+      padding: 1.4rem 1.5rem; transition: border-color .18s, transform .32s; }
+    .cat:hover { border-color: #f32735; transform: translateY(-2px); }
+    .cat.soon { opacity: .65; }
+    .cat.soon:hover { border-color: #2a2a2a; transform: none; }
+    .cat .k { font-family: "Space Mono", ui-monospace, monospace; font-size: 11px;
+      letter-spacing: .12em; text-transform: uppercase; color: #9aa1a8; }
+    .cat .n { font: 500 1.35rem/1.1 "Space Grotesk", system-ui, sans-serif; margin: .4rem 0 .2rem; letter-spacing: -.01em; }
+    .cat .d { color: #9aa1a8; font-size: 13px; }
+    .cat .go { color: #f32735; font-size: 12px; font-weight: 700; margin-top: .7rem; display: inline-block; }
+    p { color: #9aa1a8; max-width: 38rem; margin: 0; font-size: 14px; }
+    .over { font-size: 13px; }
+    .over a { border-bottom: 1px solid #2a2a2a; padding-bottom: 2px; }
+    .over a:hover { border-color: #f32735; }
   </style>
 </head>
 <body>
   <span class="eyebrow">8th Light<span class="mark">.</span> Published portfolios</span>
   <h1>Personal portfolios</h1>
-  <ul>
-    <li><a href="marcus-bell/">Marcus Bell — Staff Software Engineer (demo)</a></li>
-  </ul>
-  <p>Generated output only. Source tooling and case-study records live in the private
-  <code>portfolio-system</code> repo. Client cuts are not listed here, by design.</p>
+  <div class="cats">
+    <a class="cat" href="marcus-bell/">
+      <span class="k">Engineers</span>
+      <div class="n">Marcus Bell</div>
+      <div class="d">Staff Software Engineer · demo</div>
+      <span class="go">View portfolio →</span>
+    </a>
+    <div class="cat soon">
+      <span class="k">Designers</span>
+      <div class="n">Coming next</div>
+      <div class="d">Sibling example, same system</div>
+      <span class="go" style="color:#9aa1a8">In progress</span>
+    </div>
+  </div>
+  <p>Engineers and designers are sibling examples built on one system. Generated output only;
+  source tooling and case-study records live in the private <code>portfolio-system</code> repo.
+  Client cuts are not listed here, by design.</p>
+  <p class="over">→ <a href="project/">Project overview: research, decisions &amp; opportunities</a></p>
 </body>
 </html>
