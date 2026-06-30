@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>sql migration · 8th Light</title>
+<meta name="description" content="Turned a database migration estimated at ~15 years of manual work into an automated pipeline that ran roughly 15x faster." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Mulish:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../styles.css" />
+<link rel="stylesheet" href="../../portfolio.css" />
+<style>html{scroll-behavior:smooth}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}</style>
+</head>
+<body class="pf-tinted style-editorial">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a class="wordmark" href="#top" aria-label="8th Light"><span class="wordmark-mark" aria-hidden="true">&#10027;</span> <span class="wordmark-text">8th&nbsp;Light</span></a>
+    <a class="cs-back" href="../../index.html"><span aria-hidden="true">&larr;</span> Portfolio</a>
+  </div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+</header>
+<main id="main">
+<span id="top"></span>
+<section class="pf-wrap cs-hero">
+  <a class="cs-back" href="../../index.html"><span aria-hidden="true">&larr;</span> Back to portfolio</a>
+  <div class="cs-hero-head">
+    <h1 class="cs-headline">Turned a database migration estimated at ~15 years of manual work into an automated pipeline that ran roughly 15x faster.</h1>
+    <div class="cs-meta"><span>Enterprise live-events ticketing</span><span>Staff Software Engineer</span><span>4 engineers, 1 engineering manager, client DBAs</span><span>2025</span></div>
+  </div>
+</section>
+
+<div class="pf-wrap cs-cover"><img src="../../assets/img/b084513d-cover-sql.jpg" alt="Turned a database migration estimated at ~15 years of manual work into an automated pipeline that ran roughly 15x faster." /></div>
+
+<section class="pf-wrap pf-section cs-body">
+  <div class="cs-doc"><div class="doc"><article><div class="front"><p class="front-label">Problem</p>
+<p>A mission-critical platform behind venue operations and season-ticket management ran on SQL Anywhere 17, a database approaching vendor end-of-life. Roughly 10,000 SQL scenarios were embedded directly in decades of legacy PowerBuilder code, tightly interdependent and largely untested. A straight manual port to Oracle 19 was estimated at around 15 years of engineering effort, against a system that cannot go down during an on-sale.</p></div>
+  <div class="front"><p class="front-label">Approach</p>
+<p>Rather than translate by hand, I designed a multi-stage migration pipeline: extract every embedded SQL statement from the application code, analyze cross-statement dependencies, transform each to Oracle-compatible syntax, generate tests, validate output against expected results, and reintegrate. The hard part was trusting automation at this scale, so the pipeline pairs deterministic tooling (regex parsing, dependency analysis, structured intermediate outputs) with constrained AI agents that operate only on pre-processed inputs, keeping results reproducible and auditable rather than probabilistic. It started as a single agent and grew into several running in parallel, always with a human reviewing and approving each batch.</p></div></article></div></div>
+  <figure class="cs-figure"><img src="../../assets/img/924e2c08-shot-pipeline.jpg" alt="" loading="lazy" /></figure>
+  <div class="cs-doc"><div class="doc"><article><div class="front"><p class="front-label">Outcome</p>
+<p>Migration throughput rose roughly 15x over the manual baseline, and merge throughput tripled once parallel agents came online. Every translated statement was validated against generated tests, bounding regression risk on a system where an outage during an on-sale is unacceptable. A migration once measured in the range of 15 years became a tractable, measurable program.</p></div>
+  <div class="front"><p class="front-label">Reflection</p>
+<p>The leverage came from constraining the AI, not unleashing it. The more deterministic structure we put around the agents, parsing, dependencies, and test oracles, the more we could trust the throughput. I'd reach for that guardrail-first instinct even earlier next time.</p></div></article></div></div>
+</section>
+
+<section class="pf-wrap pf-section"><div class="cs-gallery multi"><img src="../../assets/img/06ecbb12-shot-terminal.jpg" alt="" loading="lazy" />
+<img src="../../assets/img/4ed955f7-shot-data.jpg" alt="" loading="lazy" /></div></section>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-mark"><span aria-hidden="true">&#10027;</span> 8th&nbsp;Light</p>
+    <p class="footer-meta">Marcus Bell · 8th Light</p>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark theme" title="Toggle light / dark">
+      <span class="theme-toggle-track" aria-hidden="true">
+        <span class="theme-toggle-icon theme-toggle-sun">&#9728;</span>
+        <span class="theme-toggle-icon theme-toggle-moon">&#9790;</span>
+        <span class="theme-toggle-thumb"></span>
+      </span>
+    </button>
+    <button class="footer-top" type="button" id="backToTop">Back to top <span aria-hidden="true">&uarr;</span></button>
+  </div>
+</footer>
+<script src="../../portfolio.js"></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+/* ==========================================================================
+   portfolio.css: designer intro + case-study page components.
+   Layers on styles.css (report design system tokens). Loaded after it.
+   A 12-column grid, big editorial type, gallery work cards, subtle rules.
+   ========================================================================== */
+
+/* ---- container + section rhythm ---- */
+.pf-wrap { max-width: 84rem; margin: 0 auto; padding-inline: clamp(1.25rem, 5vw, 5rem); }
+.pf-section { padding-block: clamp(3.5rem, 8vw, 8rem); position: relative; }
+/* full-bleed: a 100vw band centered behind the constrained content carries the
+   background tint AND the top keyline, so both run edge to edge. */
+.pf-section::before {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100vw; z-index: 0; border-top: 1px solid var(--line); pointer-events: none;
+}
+.pf-section > * { position: relative; z-index: 1; }
+/* on the alt background a hairline `line` is invisible, so dividers there use line-strong */
+.pf-tint::before { background: var(--bg-alt); border-top-color: var(--line-strong); }
+.pf-tinted .site-footer { background: var(--bg-alt); border-top: 1px solid var(--line-strong); }
+
+/* dark mode: charcoal body, deeper-black footer (8th Light neutrals) */
+[data-theme="dark"] { --bg: var(--charcoal); }
+[data-theme="dark"] .pf-tinted .site-footer { background: var(--black); }
+
+.pf-label {
+  font-family: var(--font-mono); font-size: var(--fs-eyebrow); letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text-faint); margin: 0;
+}
+
+/* ---- 12-col grid: small label column + content column with a dividing rule ---- */
+.pf-grid { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: clamp(1.5rem, 4vw, 4rem); row-gap: 2rem; }
+.pf-col-label { grid-column: 1 / -1; }
+.pf-col-body  { grid-column: 1 / -1; }
+@media (min-width: 56rem) {
+  .pf-col-label { grid-column: 1 / 4; position: sticky; top: calc(var(--header-h) + 1.5rem); align-self: start; }
+  .pf-col-body  { grid-column: 4 / 13; padding-left: clamp(1.5rem, 3vw, 3rem); border-left: 1px solid var(--line); }
+}
+
+/* ---- header nav ---- */
+.pf-nav { display: flex; gap: clamp(1rem, 3vw, 2.25rem); align-items: center; flex-wrap: wrap; }
+.pf-nav a { font-family: var(--font-body); font-size: var(--fs-small); font-weight: 600; color: var(--text-soft); text-decoration: none; transition: color var(--line-fast) var(--ease); }
+.pf-nav a:hover { color: var(--accent); }
+
+/* ---- hero: typographic-led, big ---- */
+/* hero: name + circular portrait (vertically centered), then a mono-uppercase eyebrow row at the bottom */
+.pf-hero { padding-top: clamp(3rem, 7vw, 6rem); padding-bottom: clamp(2.5rem, 5vw, 4.5rem); display: flex; flex-direction: column; gap: clamp(3rem, 11vw, 10rem); }
+.pf-name {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(3rem, 9vw, 7.5rem); line-height: 0.9; letter-spacing: -0.035em;
+  color: var(--text-strong); margin: 0; text-wrap: balance;
+}
+.pf-name .pf-role { display: block; color: var(--text-soft); font-size: clamp(1.875rem, 4.5vw, 3.5rem); line-height: 1.05; letter-spacing: -0.015em; margin-top: 0.18em; }
+.pf-hero-row { display: flex; gap: clamp(2rem, 5vw, 4rem); align-items: center; justify-content: space-between; }
+.pf-hero-row .pf-name { flex: 1 1 auto; }
+.pf-hero-portrait { flex: 0 0 auto; width: clamp(140px, 16vw, 220px); margin: 0; }
+.pf-hero-portrait img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 50%; background: var(--bg-inset); display: block; }
+.pf-hero-meta-row { display: flex; flex-wrap: wrap; gap: 0.5rem 2.5rem; justify-content: space-between; align-items: baseline; }
+.pf-hero-meta-row p { margin: 0; font-family: var(--font-mono); font-size: var(--fs-eyebrow); text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-soft); max-width: 60ch; }
+.pf-hero-meta-row .pf-loc { color: var(--text-faint); }
+@media (max-width: 52rem) { .pf-hero-row { flex-direction: column; align-items: flex-start; } .pf-hero-portrait { width: clamp(140px, 38vw, 200px); } }
+
+/* about: flush-left prose, no label column */
+.pf-prose .pf-about { margin-top: 0.5rem; }
+
+/* ---- statement + about + portrait ---- */
+.pf-statement {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(1.75rem, 4vw, 3rem); line-height: 1.1; letter-spacing: -0.02em;
+  color: var(--text-strong); margin: 0 0 2.5rem; text-wrap: pretty; max-width: 26ch;
+}
+.pf-about-split { display: grid; gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
+@media (min-width: 48rem) { .pf-about-split.has-portrait { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); } }
+.pf-about p { font-size: var(--fs-body); color: var(--text-soft); line-height: 1.6; max-width: 56ch; margin: 0 0 1rem; }
+.pf-portrait { margin: 0; }
+.pf-portrait img { width: 100%; height: auto; display: block; border-radius: var(--radius); background: var(--bg-inset); aspect-ratio: 4 / 5; object-fit: cover; }
+.pf-socials { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 1.75rem; list-style: none; padding: 0; }
+.pf-socials a { font-family: var(--font-mono); font-size: var(--fs-small); color: var(--text); text-decoration: none; border-bottom: 1px solid var(--line-strong); padding-bottom: 2px; transition: color var(--line-fast) var(--ease), border-color var(--line-fast) var(--ease); }
+.pf-socials a:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ---- core skills: label above, a row of up to 6 across the content width ---- */
+.pf-skills { display: grid; grid-template-columns: repeat(6, 1fr); gap: clamp(1rem, 2vw, 2rem); }
+@media (max-width: 64rem) { .pf-skills { grid-template-columns: repeat(3, 1fr); row-gap: 2rem; } }
+@media (max-width: 36rem) { .pf-skills { grid-template-columns: repeat(2, 1fr); } }
+.pf-skill { border-top: 1px solid var(--line-strong); padding-top: 1rem; }
+.pf-skill-title { font-family: var(--font-display); font-weight: 500; font-size: 1.25rem; color: var(--text-strong); margin: 0 0 0.5rem; line-height: 1.1; letter-spacing: -0.01em; }
+.pf-skill p { font-size: var(--fs-small); color: var(--text-soft); line-height: 1.45; margin: 0; }
+
+/* ---- selected work: gallery cards ---- */
+.pf-work-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: clamp(1.75rem, 4vw, 3rem); }
+.pf-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem clamp(1.5rem, 2.5vw, 2rem); }
+@media (max-width: 40rem) { .pf-gallery { grid-template-columns: 1fr; } }
+.pf-card { display: block; text-decoration: none; color: inherit; }
+.pf-card.featured { grid-column: 1 / -1; }
+.pf-card-media { display: block; width: 100%; aspect-ratio: 16 / 10; border-radius: var(--radius); overflow: hidden; background: var(--bg-inset); }
+.pf-card.featured .pf-card-media { aspect-ratio: 21 / 9; }
+.pf-card-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform var(--line-med) var(--ease); }
+.pf-card:hover .pf-card-media img { transform: scale(1.04); }
+.pf-card-fallback { width: 100%; height: 100%; display: flex; align-items: flex-end; padding: clamp(1.25rem, 3vw, 2.5rem); background: linear-gradient(140deg, var(--bg-alt), var(--bg-inset)); }
+.pf-card-fallback span { font-family: var(--font-display); font-weight: 500; font-size: var(--fs-h3); line-height: 1.05; color: var(--text-strong); max-width: 20ch; }
+.pf-card-body { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 0.5rem 1rem; margin-top: 1.1rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--line); }
+.pf-card:hover .pf-card-body { border-color: var(--accent); }
+.pf-card-title { font-family: var(--font-display); font-weight: 500; font-size: var(--fs-h4); color: var(--text-strong); margin: 0; line-height: 1.1; letter-spacing: -0.01em; }
+.pf-card.featured .pf-card-title { font-size: var(--fs-h2); }
+.pf-card-cat { grid-column: 1; font-family: var(--font-mono); font-size: var(--fs-eyebrow); text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-faint); margin: 0.35rem 0 0; }
+.pf-card-year { font-family: var(--font-mono); font-size: var(--fs-small); color: var(--text-faint); white-space: nowrap; }
+.pf-card-sum { font-size: var(--fs-small); color: var(--text-soft); line-height: 1.5; margin: 0.7rem 0 0; max-width: 52ch; }
+.pf-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.85rem 0 0; list-style: none; padding: 0; }
+.pf-tags li { font-family: var(--font-mono); font-size: var(--fs-eyebrow); color: var(--text-soft); border: 1px solid var(--line-strong); border-radius: 999px; padding: 0.2rem 0.7rem; }
+
+/* ---- contact CTA ---- */
+.pf-cta-line { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.25rem, 6vw, 5rem); line-height: 1.0; letter-spacing: -0.025em; color: var(--text-strong); margin: 0 0 2.5rem; max-width: 16ch; text-wrap: balance; }
+.pf-cta-actions { display: flex; flex-wrap: wrap; gap: 1.25rem 2rem; align-items: center; }
+.pf-cta-actions .btn { border-radius: var(--radius); font-weight: 600; font-size: var(--fs-body); padding: 0.85rem 1.4rem; }
+
+/* ==========================================================================
+   case-study page
+   ========================================================================== */
+.cs-back { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--font-mono); font-size: var(--fs-small); color: var(--text-soft); text-decoration: none; }
+.cs-back:hover { color: var(--accent); }
+.cs-hero { padding-top: clamp(2rem, 5vw, 4rem); padding-bottom: clamp(1.5rem, 3vw, 2.5rem); }
+.cs-hero-head { display: flex; flex-direction: column; gap: clamp(2.5rem, 6vw, 5rem); }
+.cs-headline { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.5rem, 6.5vw, 5rem); line-height: 1; letter-spacing: -0.02em; color: var(--text-strong); margin: 0; text-wrap: balance; max-width: 20ch; }
+.cs-meta { display: flex; flex-wrap: wrap; gap: 0.4rem 2rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--line-strong); }
+.cs-meta span { font-family: var(--font-mono); font-size: var(--fs-small); text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-faint); }
+/* body is centered and narrow; the lead image is wider than the text column */
+.cs-body { display: flex; flex-direction: column; gap: clamp(2.5rem, 6vw, 5rem); }
+.cs-doc { max-width: 40rem; margin-inline: auto; width: 100%; }
+.cs-doc article { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4rem); }
+/* case section labels: display, faint, with a 2px line-strong left rule */
+.cs-doc .front { border-left: 2px solid var(--line-strong); padding-left: clamp(1.25rem, 3vw, 2rem); }
+.cs-doc .front-label { font-family: var(--font-display); font-weight: 500; font-size: var(--fs-h4); color: var(--text-faint); text-transform: none; letter-spacing: -0.01em; margin-bottom: 0.75rem; }
+.cs-figure { margin: 0; }
+.cs-figure img { display: block; width: 100%; max-width: 50rem; margin-inline: auto; aspect-ratio: 16 / 10; object-fit: cover; border-radius: var(--radius); background: var(--bg-inset); }
+.cs-cover { margin: clamp(2rem, 5vw, 3.5rem) 0 0; }
+.cs-cover img { width: 100%; height: auto; display: block; border-radius: var(--radius); background: var(--bg-inset); aspect-ratio: 16 / 9; object-fit: cover; }
+.cs-gallery { display: grid; gap: clamp(1rem, 3vw, 2rem); margin-top: clamp(2rem, 5vw, 3.5rem); }
+@media (min-width: 48rem) { .cs-gallery.multi { grid-template-columns: 1fr 1fr; } }
+.cs-gallery img { width: 100%; height: auto; display: block; border-radius: var(--radius); background: var(--bg-inset); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-card-media img { transition: none; }
+  .pf-card:hover .pf-card-media img { transform: none; }
+}
+
+/* ==========================================================================
+   Redesign: centered nav, footer toggle, two looks, chunky work, lite gallery
+   ========================================================================== */
+
+/* centered nav (wordmark left, nav centered, theme toggle now in footer) */
+.site-header .header-inner { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+.site-header .wordmark { justify-self: start; }
+.site-header .pf-nav { justify-self: center; }
+
+/* footer: mark + meta left, theme toggle + back-to-top right */
+.site-footer .footer-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; }
+.site-footer .footer-meta { margin-right: auto; }
+
+/* chunky work cards */
+.pf-card-media { aspect-ratio: 4 / 3; }
+.pf-gallery { gap: clamp(2rem, 3vw, 3rem); }
+
+/* ---- intro: shared bits ---- */
+.pf-intro-desc { font-size: var(--fs-lead); color: var(--text-soft); line-height: 1.5; max-width: 42ch; margin: 1.5rem 0 0; }
+
+/* ---- EDITORIAL look ---- */
+.pf-hero-ed { gap: 0; padding-bottom: clamp(2rem, 4vw, 3rem); }
+.pf-intro { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+@media (max-width: 52rem) { .pf-intro { grid-template-columns: 1fr; } }
+.pf-hero-ed .pf-name { font-size: clamp(2.5rem, 6vw, 5rem); }
+.pf-skilltags { display: flex; flex-wrap: wrap; gap: 0.5rem 0.6rem; list-style: none; padding: 0; margin: 1.75rem 0 0; }
+.pf-skilltags li { font-family: var(--font-mono); font-size: var(--fs-eyebrow); text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-soft); border: 1px solid var(--line-strong); border-radius: 999px; padding: 0.35rem 0.85rem; }
+.pf-hero-portrait { width: 100%; max-width: 340px; margin: 0; justify-self: end; }
+.pf-hero-portrait img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius); background: var(--bg-inset); display: block; }
+@media (max-width: 52rem) { .pf-hero-portrait { max-width: 260px; justify-self: start; } }
+
+/* ---- lite case-study page ---- */
+.cs-lite-summary { font-size: var(--fs-lead); color: var(--text-soft); max-width: 60ch; line-height: 1.5; margin: 1.5rem 0 0; }
+.cs-litegallery { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 3vw, 2.5rem); }
+@media (max-width: 48rem) { .cs-litegallery { grid-template-columns: 1fr; } }
+.cs-litegallery .cs-shot:first-child { grid-column: 1 / -1; }
+.cs-shot { margin: 0; }
+.cs-shot img { width: 100%; height: auto; display: block; border-radius: var(--radius); background: var(--bg-inset); }
+.cs-shot figcaption { font-family: var(--font-mono); font-size: var(--fs-small); color: var(--text-faint); margin-top: 0.6rem; }
